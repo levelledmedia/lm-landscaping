@@ -534,7 +534,7 @@ button {
 }
 
 .header__logo-img {
-  height: 45px;
+  height: 43px;
   width: auto;
 }
 
@@ -1472,11 +1472,11 @@ body.hide-image-box-effect .split--reverse .split__media--tall img {
   height: 64px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: var(--primary);
-  border: 1px solid var(--primary);
+  background: #F2F2F2;
+  border: 1px solid var(--n-300);
   display: grid;
   place-items: center;
-  color: #fff;
+  color: var(--n-700);
   transition: all .22s ease;
   cursor: pointer;
 }
@@ -1487,8 +1487,8 @@ body.hide-image-box-effect .split--reverse .split__media--tall img {
 }
 
 .before-after-nav-btn:hover {
-  background: var(--primary-600);
-  border-color: var(--primary-600);
+  background: var(--primary);
+  border-color: var(--primary);
   color: #fff;
 }
 
