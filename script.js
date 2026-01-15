@@ -626,53 +626,128 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // ========================================
-  // Before/After Slider
+  // Before/After Carousel
   // ========================================
-  const sliderContainer = document.querySelector('.before-after-container');
-  if (sliderContainer) {
-    const beforeImage = document.getElementById('beforeImage');
-    const sliderHandle = document.getElementById('sliderHandle');
-    let isDragging = false;
+  const beforeAfterTrack = document.getElementById('beforeAfterTrack');
+  const beforeAfterPrev = document.getElementById('beforeAfterPrev');
+  const beforeAfterNext = document.getElementById('beforeAfterNext');
 
-    function updateSlider(e) {
-      if (!isDragging && e.type !== 'click') return;
+  if (beforeAfterTrack && beforeAfterPrev && beforeAfterNext) {
+    const slides = Array.from(beforeAfterTrack.querySelectorAll('.before-after-carousel-slide'));
+    const totalSlides = slides.length;
+    let currentSlideIndex = 0;
+    let isTransitioning = false;
+    const loadedSlides = new Set([0]); // Track which slides have loaded images
 
-      const rect = sliderContainer.getBoundingClientRect();
-      const x = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - rect.left;
-      const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    const TRANSITION = 'transform 0.5s ease';
 
-      beforeImage.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
-      sliderHandle.style.left = `${percent}%`;
-    }
+    // Function to load images for a specific slide
+    const loadSlideImages = (slideIndex) => {
+      if (loadedSlides.has(slideIndex)) return;
 
-    sliderContainer.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      updateSlider(e);
+      const slide = slides[slideIndex];
+      if (!slide) return;
+
+      const lazyImages = slide.querySelectorAll('img[data-src]');
+      lazyImages.forEach(img => {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+      });
+
+      loadedSlides.add(slideIndex);
+    };
+
+    // Preload adjacent slides
+    const preloadAdjacentSlides = (currentIndex) => {
+      // Load current slide
+      loadSlideImages(currentIndex);
+
+      // Preload next slide
+      const nextIndex = (currentIndex + 1) % totalSlides;
+      loadSlideImages(nextIndex);
+
+      // Preload previous slide
+      const prevIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      loadSlideImages(prevIndex);
+    };
+
+    // Position all slides side-by-side
+    const updatePosition = (animate = true) => {
+      beforeAfterTrack.style.transition = animate ? TRANSITION : 'none';
+      beforeAfterTrack.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+
+      // Preload images for current and adjacent slides
+      preloadAdjacentSlides(currentSlideIndex);
+    };
+
+    updatePosition(false);
+
+    const slideBy = (delta) => {
+      if (isTransitioning) return;
+
+      isTransitioning = true;
+      currentSlideIndex = (currentSlideIndex + delta + totalSlides) % totalSlides;
+      updatePosition(true);
+
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 500);
+    };
+
+    beforeAfterNext.addEventListener('click', () => slideBy(1));
+    beforeAfterPrev.addEventListener('click', () => slideBy(-1));
+
+    window.addEventListener('resize', () => {
+      updatePosition(false);
     });
 
-    sliderContainer.addEventListener('click', updateSlider);
+    // Initialize all before/after sliders within the carousel
+    const sliderContainers = beforeAfterTrack.querySelectorAll('.before-after-container');
+    sliderContainers.forEach((sliderContainer) => {
+      const beforeImage = sliderContainer.querySelector('.before-after-image--before');
+      const sliderHandle = sliderContainer.querySelector('.before-after-slider-handle');
+      let isDragging = false;
 
-    document.addEventListener('mousemove', updateSlider);
+      function updateSlider(e) {
+        if (!isDragging && e.type !== 'click') return;
 
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
+        const rect = sliderContainer.getBoundingClientRect();
+        const x = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - rect.left;
+        const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
 
-    sliderContainer.addEventListener('touchstart', (e) => {
-      isDragging = true;
-      e.preventDefault(); // Prevent page scrolling
-      updateSlider(e);
-    }, { passive: false });
-
-    sliderContainer.addEventListener('touchmove', (e) => {
-      if (isDragging) {
-        e.preventDefault(); // Prevent page scrolling while dragging
+        beforeImage.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+        sliderHandle.style.left = `${percent}%`;
       }
-      updateSlider(e);
-    }, { passive: false });
 
-    sliderContainer.addEventListener('touchend', () => {
-      isDragging = false;
+      sliderContainer.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        updateSlider(e);
+      });
+
+      sliderContainer.addEventListener('click', updateSlider);
+
+      document.addEventListener('mousemove', updateSlider);
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+
+      sliderContainer.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        e.preventDefault();
+        updateSlider(e);
+      }, { passive: false });
+
+      sliderContainer.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+          e.preventDefault();
+        }
+        updateSlider(e);
+      }, { passive: false });
+
+      sliderContainer.addEventListener('touchend', () => {
+        isDragging = false;
+      });
     });
   }
 
