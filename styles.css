@@ -66,7 +66,7 @@
   --font-headings: "Cinzel", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
   --font-sans: "Readex Pro", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
   --fw-heading: 700;
-  --fs-hero: 62px;
+  --fs-hero: 65px;
   --fs-hero-subtitle: 26px;
   --fs-xxl: 44px;
   --fs-xl: 36px;
@@ -1495,11 +1495,25 @@ body.hide-image-box-effect .split--reverse .split__media--tall img {
 @media (max-width: 768px) {
   .before-after-carousel-wrapper {
     gap: var(--sp-6);
+    flex-direction: column;
   }
 
   .before-after-nav-btn {
     width: 48px;
     height: 48px;
+  }
+
+  .before-after-nav-btn--prev {
+    order: -2;
+  }
+
+  .before-after-nav-btn--next {
+    order: -1;
+  }
+
+  .before-after-carousel {
+    order: 1;
+    width: 100%;
   }
 }
 
@@ -2225,6 +2239,7 @@ body.hide-image-box-effect .split--reverse .split__media--tall img {
     --gutter-tablet: 20px;
     --fs-hero: clamp(40px, 9vw, 56px);
     --fs-hero-subtitle: clamp(20px, 5vw, 24px);
+    --fs-xxl: clamp(40px, 9vw, 56px);
     --fs-xl: 28px;
     --fs-lg: 20px;
   }
@@ -2270,6 +2285,10 @@ body.hide-image-box-effect .split--reverse .split__media--tall img {
 
   .hero__buttons .btn {
     width: 100%;
+  }
+
+  .header__logo-img {
+    height: 36px;
   }
 
   .stats-grid {
