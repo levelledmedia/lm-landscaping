@@ -27,58 +27,8 @@
     }
   </style>
   <script>
-    // Apply default theme mode immediately before page renders to prevent flash
-    (function() {
-      const defaultTheme = 'light';
-      const businessName = 'LM Landscaping';
-      const storageKey = 'darkMode_' + businessName.replace(/[^a-zA-Z0-9]/g, '_');
-
-      // Check if this is a preview - if so, always use the default theme
-      // Previews are served from /websites/ path on localhost
-      const isPreview = window.location.pathname.includes('/websites/');
-
-      let savedMode = localStorage.getItem(storageKey);
-
-      // For previews, clear any saved preference so you always see the configured default
-      if (isPreview && savedMode !== null) {
-        localStorage.removeItem(storageKey);
-        savedMode = null;
-      }
-
-      // Decide which mode to use
-      let useDarkMode = false;
-
-      if (savedMode !== null) {
-        // User has toggled before - use their saved preference
-        useDarkMode = (savedMode === 'enabled');
-      } else {
-        // No saved preference - use the configured default
-        useDarkMode = (defaultTheme === 'dark');
-        // Save the default so we know it's been initialized (unless it's a preview)
-        if (!isPreview) {
-          localStorage.setItem(storageKey, useDarkMode ? 'enabled' : 'disabled');
-        }
-      }
-
-      // Apply dark mode if needed
-      if (useDarkMode) {
-        document.documentElement.classList.add('dark-mode');
-        document.documentElement.classList.add('dark-mode-init');
-      }
-
-      // Add dark-mode class to body when it's available (for body.dark-mode CSS selectors)
-      if (useDarkMode) {
-        if (document.body) {
-          document.body.classList.add('dark-mode');
-        } else {
-          document.addEventListener('DOMContentLoaded', function() {
-            if (useDarkMode) {
-              document.body.classList.add('dark-mode');
-            }
-          });
-        }
-      }
-    })();
+    // Dark mode is available but never loads by default
+    // Users must manually toggle it on each session
   </script>
 </head>
 <body>
@@ -1445,16 +1395,16 @@ Highly, highly recommended. 5 stars just isn&#39;t enough!! Thank you Lee, Justi
           <p class="section__description">Fill out the form below and we&#39;ll get back to you with a competitive quote.</p>
         </div>
       </div>
-      <form class="quote-form">
+      <form class="quote-form" action="https://formspree.io/f/mjgggpvp" method="POST">
         <div class="form-row">
-          <input type="text" placeholder="Full name" class="form-input" required>
-          <input type="text" placeholder="Postcode" class="form-input" required>
+          <input type="text" name="name" placeholder="Full name" class="form-input" required>
+          <input type="text" name="postcode" placeholder="Postcode" class="form-input" required>
         </div>
         <div class="form-row">
-          <input type="email" placeholder="Email address" class="form-input" required>
-          <input type="tel" placeholder="Phone number" class="form-input" required>
+          <input type="email" name="email" placeholder="Email address" class="form-input" required>
+          <input type="tel" name="phone" placeholder="Phone number" class="form-input" required>
         </div>
-        <textarea placeholder="Briefly describe your project" class="form-input form-textarea" required></textarea>
+        <textarea name="message" placeholder="Briefly describe your project" class="form-input form-textarea" required></textarea>
         <button type="submit" class="btn btn--primary btn--full">Yes, I Want a Free Quote</button>
       </form>
     </div>
@@ -1514,24 +1464,7 @@ Highly, highly recommended. 5 stars just isn&#39;t enough!! Thank you Lee, Justi
         </div>
       </div>
       <div class="footer__bottom">
-        <p>© 2025 LM Landscaping. All rights reserved. | <a href="#">Privacy Policy</a> |
-          <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
-            <svg class="dark-mode-toggle__icon dark-mode-toggle__icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-            <svg class="dark-mode-toggle__icon dark-mode-toggle__icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          </button>
-        </p>
+        <p>© 2026 LM Landscaping. All rights reserved. Built by <a href="https://levelledmedia.com">Levelled Media</a>.</p>
       </div>
     </div>
   </footer>

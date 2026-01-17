@@ -2138,11 +2138,11 @@ body.hide-image-box-effect .split--reverse .split__media--tall img {
   border-top: 1px solid rgba(255, 255, 255, .1);
   text-align: center;
   font-size: var(--fs-sm);
-  color: rgba(255, 255, 255, .6);
+  color: rgba(255, 255, 255, .4);
 }
 
 .footer__bottom a {
-  color: rgba(255, 255, 255, .7);
+  color: rgba(255, 255, 255, .4);
   text-decoration: underline;
   transition: color .2s ease;
 }
