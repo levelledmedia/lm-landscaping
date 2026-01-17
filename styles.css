@@ -1494,26 +1494,21 @@ body.hide-image-box-effect .split--reverse .split__media--tall img {
 
 @media (max-width: 768px) {
   .before-after-carousel-wrapper {
-    gap: var(--sp-6);
-    flex-direction: column;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .before-after-nav-btn {
     width: 48px;
     height: 48px;
-  }
-
-  .before-after-nav-btn--prev {
-    order: -2;
-  }
-
-  .before-after-nav-btn--next {
     order: -1;
   }
 
   .before-after-carousel {
     order: 1;
     width: 100%;
+    flex-basis: 100%;
   }
 }
 
