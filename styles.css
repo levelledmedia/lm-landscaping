@@ -1114,43 +1114,16 @@ body.hide-image-box-effect .split--reverse .split__media--tall img {
   transform: scale(1.05);
 }
 
-.services-carousel {
-  margin-top: var(--sp-8);
-  overflow: hidden;
-  position: relative;
-  cursor: grab;
-  padding-bottom: 12px;
-  margin-bottom: -12px;
-}
-
-.services-carousel:active {
-  cursor: grabbing;
-}
-
-.services-carousel-track {
-  display: flex;
-  gap: var(--sp-6);
-  transition: transform 0.5s ease;
-  padding-bottom: 8px;
-}
-
 .service-card {
-  flex: 0 0 calc(33.333% - var(--sp-6) * 2 / 3);
   background: #FFFFFF;
   border-radius: var(--r-xl);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  user-select: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.service-card img {
-  pointer-events: none;
-  user-select: none;
-}
-
-.services-carousel-track .service-card[data-carousel-clone] {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-  transition: none !important;
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .service-card__image {
@@ -2340,10 +2313,6 @@ body.hide-image-box-effect .split--reverse .split__media--tall img {
 
   .services-grid {
     grid-template-columns: 1fr;
-  }
-
-  .service-card {
-    flex: 0 0 calc(85% - var(--sp-6) * 2 / 3);
   }
 
   .portfolio-carousel-slide {

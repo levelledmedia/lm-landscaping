@@ -488,49 +488,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // ========================================
-  // Services Carousel
-  // ========================================
-  const servicesTrack = document.getElementById('servicesTrack');
-  const servicesPrev = document.getElementById('servicesPrev');
-  const servicesNext = document.getElementById('servicesNext');
-
-  createInfiniteCarousel({
-    track: servicesTrack,
-    prevButton: servicesPrev,
-    nextButton: servicesNext,
-    slideSelector: '.service-card'
-  });
-
-  // Add drag-to-scroll for services carousel
-  if (servicesTrack) {
-    let isDragging = false;
-    let startX;
-    let currentTranslate = 0;
-
-    const carousel = servicesTrack.parentElement;
-
-    carousel.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.pageX;
-      const transform = servicesTrack.style.transform || 'translateX(0px)';
-      currentTranslate = parseFloat(transform.match(/-?\d+\.?\d*/)?.[0]) || 0;
-      servicesTrack.style.transition = 'none';
-    });
-
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-      servicesTrack.style.transition = '';
-    });
-
-    document.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      e.preventDefault();
-      const diff = (e.pageX - startX) * 0.5; // Slow down drag speed
-      servicesTrack.style.transform = `translateX(${currentTranslate + diff}px)`;
-    });
-  }
-
-  // ========================================
   // Portfolio Carousel
   // ========================================
   const portfolioTrack = document.getElementById('portfolioTrack');
