@@ -787,6 +787,10 @@ button {
   justify-content: center;
 }
 
+.hero__review-btn {
+  display: none;
+}
+
 /* ========================================
    Pre-Footer Quote Form
    ======================================== */
@@ -2252,6 +2256,10 @@ body.hide-image-box-effect .split--reverse .split__media--tall img {
 
   .hero__buttons .btn {
     width: 100%;
+  }
+
+  .hero__review-btn {
+    display: inline-flex;
   }
 
   .header__logo-img {
