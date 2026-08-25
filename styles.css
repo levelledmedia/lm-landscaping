@@ -578,17 +578,15 @@ button {
   height: 18px;
 }
 
-.header__email-btn {
-  border: none !important;
-  background: transparent !important;
+.header__review-btn {
+  background: var(--grey);
   color: var(--dark);
+  border: none;
   font-size: 14.5px;
 }
 
-.header__email-btn:hover {
-  background: transparent !important;
-  border: none !important;
-  transform: none !important;
+.header__review-btn:hover {
+  background: #e0e0e0;
 }
 
 .header__nav-container {
@@ -853,9 +851,6 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .header__email-btn {
-    display: none;
-  }
 }
 
 .form-input {
@@ -2228,6 +2223,10 @@ body.hide-image-box-effect .split--reverse .split__media--tall img {
     display: none;
   }
 
+  .header__review-btn {
+    display: none;
+  }
+
   .header__hamburger {
     display: flex;
   }
@@ -2842,9 +2841,14 @@ body.dark-mode .section__description {
   color: var(--n-600);
 }
 
-/* Dark Mode - Header Email Button */
-body.dark-mode .header__email-btn {
+/* Dark Mode - Header Review Button */
+body.dark-mode .header__review-btn {
+  background: rgba(255, 255, 255, 0.08);
   color: #E6EDF3;
+}
+
+body.dark-mode .header__review-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 /* Logo overlay - controlled by user preference, not automatic dark mode */
